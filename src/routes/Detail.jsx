@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,14 +10,37 @@ let YellowBtn = styled.button`
 
 let NewBtn = styled.button(YellowBtn)
 
-function Detail(props) {
 
+
+
+
+function Detail(props) {
+    let [count, setCount] = useState(0)
     let { id } = useParams(); //현재 url주소에 입력한 숫자를 가져옴 
+    let [alert, setAlert] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setAlert(false)
+        }, 2000)
+    }, [])
+
 
     return (
         <div className="container">
-                <YellowBtn bg="blue">버튼</YellowBtn>
-                <YellowBtn bg="orange">버튼</YellowBtn>
+            {
+                alert == true
+                    ? <div className="alert alert-warning">
+                        2초이내 구매시 할인
+                    </div>
+                    : null
+            }
+
+            {/* 재랜더링 카운트가 하나씩 증가 */}
+            {count}
+            <button onClick={() => { setCount(count++) }}>버튼</button>
+            <YellowBtn bg="blue">버튼</YellowBtn>
+            <YellowBtn bg="orange">버튼</YellowBtn>
             <div className="row">
                 <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
