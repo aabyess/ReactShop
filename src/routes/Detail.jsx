@@ -23,7 +23,7 @@ function Detail(props) {
         setTimeout(() => {
             setAlert(false)
         }, 2000)
-    }, [])
+    }, [count])
 
 
     return (
