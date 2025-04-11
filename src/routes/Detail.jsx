@@ -18,11 +18,24 @@ function Detail(props) {
     let [count, setCount] = useState(0)
     let { id } = useParams(); //현재 url주소에 입력한 숫자를 가져옴 
     let [alert, setAlert] = useState(true)
+    let [num, setNum] = useState('')
+    
+
+    useEffect(()=>{
+        if (isNaN(num) == true){
+          alert('그러지마세요')
+        }
+      }, [num])
+
 
     useEffect(() => {
-        setTimeout(() => {
+        let a =  setTimeout(() => {
             setAlert(false)
         }, 2000)
+        return ()=>{
+            
+            clearTimeout(a)
+        }
     }, [count])
 
 
@@ -46,6 +59,7 @@ function Detail(props) {
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
                 </div>
                 <div className="col-md-6">
+                    <input onChange={ (e)=> {setNum(e.target.value)}}/>
                     <h4 className="pt-5">{props.shoes[id].title}</h4>
                     <p>{props.shoes[id].content}</p>
                     <p>{props.shoes[id].price}원</p>
