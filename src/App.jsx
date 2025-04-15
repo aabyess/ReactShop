@@ -12,7 +12,7 @@ import axios from 'axios';
 
 function App() {
 
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate =  useNavigate();
   return (
     <div className='App'>
@@ -59,9 +59,23 @@ function App() {
                     <Card shoes={shoes[2]} i={3}></Card> */}
               </div>
             </div>
+            
             <button onClick={()=>{
+              /* ajax를 이용해서 서버에서 데이터를 가져옴 */
               axios.get('https://codingapple1.github.io/shop/data2.json')
-              .then((결과)=>{ console.log(결과.data) })
+              .then((결과)=>{ 
+                /* 버튼을 클릭하면 shoes 데이터를 추가함 */
+                console.log(결과.data)
+                let copy = [...shoes, ...결과.data]; 
+                setShoes(copy);
+                /* Array 같은 데이터는 복사본을 만들어줘라 */
+                /* 괄호를 벗겨주는 기능 '...' */
+               })
+
+               axios.post('/qwer',{ name:'kim' })
+               /* 서버로 데이터전송하는 POST요청 */
+
+
               .catch(()=>{
                 console.log('실패함 ㅅㄱ') /* 실패 했을때 예외처리*/
               })
