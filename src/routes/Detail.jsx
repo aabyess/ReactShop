@@ -93,4 +93,5 @@ function TabContent(props) {
         return <div>내용2</div>
     }
 }
+// test
 export default Detail;
