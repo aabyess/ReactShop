@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Nav } from "react-bootstrap";
 
 let YellowBtn = styled.button`
     background : ${props => props.bg};
@@ -14,7 +15,7 @@ function Detail(props) {
     let { id } = useParams(); //현재 url주소에 입력한 숫자를 가져옴 
     let [alert, setAlert] = useState(true)
     let [num, setNum] = useState('')
-
+    let [탭, 탭변경] = useState(0)
     useEffect(() => {
         if (isNaN(num) == true) {
             alert('그러지마세요')
@@ -58,19 +59,38 @@ function Detail(props) {
             </div>
             <Nav variant="tabs" defaultActiveKey="/home">
                 <Nav.Item>
-                    <Nav.Link href="/home">Active</Nav.Link>
+                    <Nav.Link href="/home" onClick={() => {
+                        탭변경(0)
+                    }}>버튼0</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link-1">Option 2</Nav.Link>
+                    <Nav.Link eventKey="link-1" onClick={() => {
+                        탭변경(1)
+                    }}
+                    >버튼1</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="disabled" disabled>
-                        Disabled
-                    </Nav.Link>
+                    <Nav.Link eventKey="link-2" onClick={() => {
+                        탭변경(2)
+                    }}>버튼2</Nav.Link>
                 </Nav.Item>
             </Nav>
+            {/* state에 따라서 UI가 어떻게 보일지 작성 */}
+            <TabContent 탭={탭}></TabContent>
+
         </div>
     )
 }
 
+function TabContent(props) {
+    if (props.탭 == 0) {
+        return <div>내용0</div>
+    }
+    else if (props.탭 == 1) {
+        return <div>내용1</div>
+    }
+    else if (props.탭 == 2) {
+        return <div>내용2</div>
+    }
+}
 export default Detail;
