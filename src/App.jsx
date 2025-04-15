@@ -8,6 +8,7 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.jsx';
 import Event from './routes/Event.jsx';
+import axios from 'axios';
 
 function App() {
 
@@ -58,12 +59,20 @@ function App() {
                     <Card shoes={shoes[2]} i={3}></Card> */}
               </div>
             </div>
+            <button onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((결과)=>{ console.log(결과.data) })
+              .catch(()=>{
+                console.log('실패함 ㅅㄱ') /* 실패 했을때 예외처리*/
+              })
+            }}>버튼</button>
           </>
         } />
         <Route path='/detail/:id' element={<Detail shoes ={shoes}/>} />
 
 
-
+        
+        {/* 상세페이지 */}
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버임</div>} />
           <Route path='location' element={<div>위치정보임</div>} />
