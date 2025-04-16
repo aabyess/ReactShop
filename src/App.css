@@ -4,3 +4,25 @@
     background-size: cover;
     background-position: center;
 }
+
+.start{
+    transform: scale(0);
+
+}
+.end{
+    transform: scale(1);
+    transition:all 0.5s;
+}
+
+
+
+
+.App {
+    text-align: center;
+    letter-spacing: -0.8px;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}   

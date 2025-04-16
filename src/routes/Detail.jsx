@@ -16,6 +16,17 @@ function Detail(props) {
     let [alert, setAlert] = useState(true)
     let [num, setNum] = useState('')
     let [탭, 탭변경] = useState(0)
+    let [fade2, setFade2] = useState('')
+
+
+    useEffect(() => {
+        setFade2('end')
+        return () => {
+            setFade2('')
+        }   
+    }, [])  
+
+
     useEffect(() => {
         if (isNaN(num) == true) {
             alert('그러지마세요')
@@ -32,7 +43,7 @@ function Detail(props) {
         }
     }, [count])
     return (
-        <div className="container">
+        <div className={`container start ${fade2}`}>
             {
                 alert == true
                     ? <div className="alert alert-warning">
@@ -82,16 +93,24 @@ function Detail(props) {
     )
 }
 
-function TabContent(props) {
-    if (props.탭 == 0) {
-        return <div>내용0</div>
-    }
-    else if (props.탭 == 1) {
-        return <div>내용1</div>
-    }
-    else if (props.탭 == 2) {
-        return <div>내용2</div>
-    }
+function TabContent({ 탭 }) {
+
+    let [fade, setFade] = useState('')
+
+    useEffect(() => {
+        let a = setTimeout(()=>{  setFade('end')  }, 100)
+        
+        return ()=>{
+            clearTimeout(a)
+            setFade('')
+        }
+    }, [탭])
+    // useEffect(() => { // 탭이 바뀔때마다 실행됨
+
+
+    return (<div className={`start ${fade}`}>
+        {[<div>내용1</div>, <div>내용2</div>, <div>내용1</div>][탭]}
+    </div>)
 }
 // test
 export default Detail;
