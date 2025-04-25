@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
+import { addItem } from "../store";
+import { useDispatch } from "react-redux";
 
 let YellowBtn = styled.button`
     background : ${props => props.bg};
@@ -17,7 +19,7 @@ function Detail(props) {
     let [num, setNum] = useState('')
     let [탭, 탭변경] = useState(0)
     let [fade2, setFade2] = useState('')
-
+    let dispatch = useDispatch()
 
     useEffect(() => {
         setFade2('end')
@@ -65,7 +67,10 @@ function Detail(props) {
                     <h4 className="pt-5">{props.shoes[id].title}</h4>
                     <p>{props.shoes[id].content}</p>
                     <p>{props.shoes[id].price}원</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button className="btn btn-danger" onClick={()=>{
+                            dispatch(addItem({id : 1, name : 'Red Knit', count : 1}))
+                        }}
+                    >주문하기</button>
                 </div>
             </div>
             <Nav variant="tabs" defaultActiveKey="/home">
